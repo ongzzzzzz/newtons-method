@@ -31,9 +31,31 @@ class Approxy:
 			guess = guess - ( guess**(1-x) * (1 - x*(guess**(-x))) )
 		return guess
 
-	# add exponential
+	def factorial(self, x):
+		return np.prod([ 
+			i for i in range(1, x+1)
+		])
+
+	def exp(self, x):
+		# taylor series
+		return sum([
+			x**n / self.factorial(n)
+			for n in range(0, 64)
+		])
+
+	def ln(self, x):
+		# f(x) = e^x - a = 0
+		guess = np.log(x) # initial guess
+		for i in range(self.loops):
+			guess = (guess-1)+(x*self.exp(-guess)) 
+		return guess
+
+	# add logarithmdri
 		
 thing = Approxy(10)
-print('sqrt(69):', thing.nwtn_sqrt(69))
-print('W(69):', thing.nwtn_w(69))
-print('selfroot(2):', thing.nwtn_selfroot(2))
+# print('sqrt(69):', thing.nwtn_sqrt(69))
+# print('W(69):', thing.nwtn_w(69))
+# print('selfroot(2):', thing.nwtn_selfroot(2))
+# print(thing.ln_1_min_X(1-2.7))
+# print(1**1/thing.factorial(1))
+print(thing.ln(2))
